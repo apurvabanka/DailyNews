@@ -3,6 +3,7 @@ package net.bankatimes.dailyNews.controller;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,9 +65,15 @@ public class NewsEntryControllerV2 {
 
     @GetMapping("/id/{myId}")
     public ResponseEntity<NewsEntry> getNewsById(@PathVariable ObjectId myId){
-        Optional<NewsEntry> newsEntry = newsEntryService.findById(myId);
-        if (newsEntry.isPresent()) {
-            return new ResponseEntity<>(newsEntry.get(), HttpStatus.OK);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user = userService.findByUsername(username);
+        List<NewsEntry> collect = user.getNewsEntries().stream().filter(x -> x.getId().equals(myId)).collect(Collectors.toList());
+        if(!collect.isEmpty()){
+            Optional<NewsEntry> newsEntry = newsEntryService.findById(myId);
+            if (newsEntry.isPresent()) {
+                return new ResponseEntity<>(newsEntry.get(), HttpStatus.OK);
+            }
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
