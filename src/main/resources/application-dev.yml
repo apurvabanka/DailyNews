@@ -1,0 +1,13 @@
+spring:
+  main:
+    allow-circular-references: true
+  data:
+    mongodb:
+      uri: mongodb+srv://appubanka:appu1996@newscluster.vxc6u.mongodb.net/?retryWrites=true&w=majority&appName=NewsCluster
+      database: newsdb
+      auto-index-creation: true
+
+server:
+  port: 8081
+  serverlet:
+    context-path: /news
