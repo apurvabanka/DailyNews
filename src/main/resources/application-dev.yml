@@ -6,6 +6,17 @@ spring:
       uri: mongodb+srv://appubanka:appu1996@newscluster.vxc6u.mongodb.net/?retryWrites=true&w=majority&appName=NewsCluster
       database: newsdb
       auto-index-creation: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: appu.banka@gmail.com
+    password: xxxx xxxx xxxx xxxxx
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 server:
   port: 8081
