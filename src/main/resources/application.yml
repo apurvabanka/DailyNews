@@ -7,3 +7,7 @@ logging:
     net:
       bankatimes:
         dailyNews: TRACE
+
+weather:
+  api:
+    key: 1ATJysW90wYgLLWJaRXoOBowUAAvD67Q

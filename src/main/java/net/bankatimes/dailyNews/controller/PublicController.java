@@ -15,6 +15,7 @@ import net.bankatimes.dailyNews.entity.User;
 import net.bankatimes.dailyNews.api.response.WeatherResponse;
 import net.bankatimes.dailyNews.service.UserService;
 import net.bankatimes.dailyNews.service.WeatherService;
+import net.bankatimes.dailyNews.cache.AppCache;
 
 @RestController
 @RequestMapping("/public")
@@ -25,6 +26,9 @@ public class PublicController {
 
     @Autowired
     private WeatherService weatherService;
+
+    @Autowired
+    private AppCache appCache;
     
     @GetMapping("/health-check")
     public String healthCheck(){
@@ -52,5 +56,9 @@ public class PublicController {
         
     }
 
+    @GetMapping("/clear-app-cache")
+    public void AppCache(){
+        appCache.init();
+    }
 
 }

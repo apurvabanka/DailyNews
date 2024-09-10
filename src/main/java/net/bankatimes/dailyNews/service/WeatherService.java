@@ -1,30 +1,31 @@
 package net.bankatimes.dailyNews.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 // import net.bankatimes.dailyNews.api.response.WeatherResponses;
+
 import net.bankatimes.dailyNews.api.response.WeatherResponse;
+import net.bankatimes.dailyNews.cache.AppCache;
 
 @Component
 public class WeatherService {
 
-    private static final String apiKey = "1ATJysW90wYgLLWJaRXoOBowUAAvD67Q";
+    @Value("${weather.api.key}")
+    private String apiKey;
 
-    private static final String API = "http://dataservice.accuweather.com/currentconditions/v1/1-204108_1_AL/historical/24?apikey=API_KEY";
+    @Autowired
+    private AppCache appCache;
 
-    public static String getApiKey() {
-        return apiKey;
-    }
     
     @Autowired
     private RestTemplate restTemplate;
 
     public WeatherResponse getWeather(){
-        String finalApiCall = API.replace("API_KEY", getApiKey());
+        String finalApiCall = appCache.APP_CACHE.get("weather_api").replace("<api_key>", apiKey);
 
         ResponseEntity<WeatherResponse[]> response = restTemplate.getForEntity(finalApiCall, WeatherResponse[].class);
         
