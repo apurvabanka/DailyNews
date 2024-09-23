@@ -1,14 +1,17 @@
 spring:
   main:
     allow-circular-references: true
+  redis:
+    host: redis-15544.c232.us-east-1-2.ec2.redns.redis-cloud.com
+    port: 15544
+    ssl: true
+    password: nQ1nYgckFTPLm7wsbeIUNg7HGGWHDKUK
   data:
     mongodb:
       uri: mongodb+srv://appubanka:appu1996@newscluster.vxc6u.mongodb.net/?retryWrites=true&w=majority&appName=NewsCluster
       database: newsdb
       auto-index-creation: true
-  redis:
-    host: localhost
-    port: 6379
+
   mail:
     host: smtp.gmail.com
     port: 587
